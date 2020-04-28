@@ -19,6 +19,9 @@
 #include "std_msgs/msg/string.hpp"
 #include "minimal_composition_pcl/visibility.h"
 
+#include <sensor_msgs/msg/point_cloud2.hpp>
+#include <pcl_conversions/pcl_conversions.h>
+
 class SubscriberPCLNode : public rclcpp::Node
 {
 public:
@@ -26,6 +29,7 @@ public:
 
 private:
   rclcpp::Subscription<std_msgs::msg::String>::SharedPtr subscription_;
+  rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr subscription_pointcloud_;
 };
 
 #endif  // MINIMAL_COMPOSITION__SUBSCRIBER_PCL_NODE_HPP_

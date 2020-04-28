@@ -11,18 +11,32 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 endif()
 
 find_package(ament_cmake REQUIRED)
+
 find_package(rclcpp REQUIRED)
 find_package(rclcpp_components REQUIRED)
+find_package(sensor_msgs REQUIRED)
 find_package(std_msgs REQUIRED)
+find_package(pcl_conversions REQUIRED)
+find_package(pcl_msgs REQUIRED)
 
-include_directories(include)
+find_package(Boost REQUIRED)
+find_package(PCL REQUIRED QUIET COMPONENTS common)
+
+include_directories(include
+    ${PCL_COMMON_INCLUDE_DIRS})
 
 add_library(composition_pcl_nodes SHARED
             src/publisher_pcl_node.cpp
             src/subscriber_pcl_node.cpp)
 target_compile_definitions(composition_pcl_nodes
   PRIVATE "MINIMAL_COMPOSITION_DLL")
-ament_target_dependencies(composition_pcl_nodes rclcpp rclcpp_components std_msgs)
+ament_target_dependencies(composition_pcl_nodes
+    rclcpp
+    rclcpp_components
+    sensor_msgs
+    std_msgs)
+target_link_libraries(composition_pcl_nodes
+    ${Boost_LIBRARIES})
 
 # This package installs libraries without exporting them.
 # Export the library path to ensure that the installed libraries are available.

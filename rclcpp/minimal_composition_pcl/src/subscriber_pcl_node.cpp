@@ -25,6 +25,19 @@ SubscriberPCLNode::SubscriberPCLNode(rclcpp::NodeOptions options)
     [this](std_msgs::msg::String::UniquePtr msg) {
       RCLCPP_INFO(this->get_logger(), "SubscriberPCL: '%s'", msg->data.c_str());
     });
+#define DEFDEF true
+#ifdef DEFDEF
+  subscription_pointcloud_= create_subscription<sensor_msgs::msg::PointCloud2>(
+    "sc/rgbd/points",
+    10,
+    [this](sensor_msgs::msg::PointCloud2::ConstSharedPtr msg) {
+
+      RCLCPP_INFO(this->get_logger(),
+                  "width: '%d'\nheight: '%d'\n",
+                  msg->width, msg->height);
+
+    });
+#endif
 }
 
 #include "rclcpp_components/register_node_macro.hpp"
