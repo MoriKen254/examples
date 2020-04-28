@@ -21,10 +21,14 @@ find_package(pcl_conversions REQUIRED)
 #find_package(pcl_msgs REQUIRED)
 
 find_package(Boost REQUIRED)
-find_package(PCL REQUIRED QUIET COMPONENTS common)
+find_package(PCL REQUIRED)
 
 include_directories(include
     ${PCL_COMMON_INCLUDE_DIRS})
+
+###########
+## Build ##
+###########
 
 add_library(composition_pcl_nodes SHARED
             src/publisher_pcl_node.cpp
@@ -62,6 +66,10 @@ ament_target_dependencies(composition_subscriber_pcl
 add_executable(composition_composed_pcl src/composed_pcl.cpp)
 target_link_libraries(composition_composed_pcl composition_pcl_nodes)
 ament_target_dependencies(composition_composed_pcl rclcpp class_loader)
+
+###########
+# Install #
+###########
 
 install(TARGETS
   composition_pcl_nodes

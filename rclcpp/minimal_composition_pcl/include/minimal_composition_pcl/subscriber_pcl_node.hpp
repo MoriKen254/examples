@@ -31,6 +31,12 @@ private:
   rclcpp::Subscription<std_msgs::msg::String>::SharedPtr subscription_;
   rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr subscription_pointcloud_;
   int index_;
+  float downsample_leafsize_x_;
+  float downsample_leafsize_y_;
+  float downsample_leafsize_z_;
+  sensor_msgs::msg::PointCloud2::SharedPtr cloud_filterd_ros_;
+  rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr pub_;
+  std::string frame_id_;
 };
 
 #endif  // MINIMAL_COMPOSITION__SUBSCRIBER_PCL_NODE_HPP_
