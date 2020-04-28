@@ -15,10 +15,12 @@
 #include "minimal_composition_pcl/subscriber_pcl_node.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
+#include <pcl_conversions/pcl_conversions.h>
 
 SubscriberPCLNode::SubscriberPCLNode(rclcpp::NodeOptions options)
 : Node("subscriber_pcl_node", options)
 {
+  index_ = 0;
   subscription_ = create_subscription<std_msgs::msg::String>(
     "topic_pcl",
     10,
@@ -33,8 +35,14 @@ SubscriberPCLNode::SubscriberPCLNode(rclcpp::NodeOptions options)
     [this](sensor_msgs::msg::PointCloud2::ConstSharedPtr msg) {
 
       RCLCPP_INFO(this->get_logger(),
-                  "width: '%d'\nheight: '%d'\n",
-                  msg->width, msg->height);
+                  "\ncount: %d\nwidth: '%d'\nheight: '%d'\n",
+                  index_++, msg->width, msg->height);
+
+      pcl::PointCloud<pcl::PointXYZRGB> cloud2;
+      pcl::fromROSMsg(*msg, cloud2);
+      RCLCPP_INFO(this->get_logger(),
+                  "cloud2.points.size(): %d\n====================",
+                  cloud2.points.size());
 
     });
 #endif

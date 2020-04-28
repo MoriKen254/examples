@@ -30,6 +30,7 @@ public:
 private:
   rclcpp::Subscription<std_msgs::msg::String>::SharedPtr subscription_;
   rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr subscription_pointcloud_;
+  int index_;
 };
 
 #endif  // MINIMAL_COMPOSITION__SUBSCRIBER_PCL_NODE_HPP_

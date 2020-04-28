@@ -12,6 +12,7 @@ endif()
 
 find_package(ament_cmake REQUIRED)
 
+find_package(class_loader REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(rclcpp_components REQUIRED)
 find_package(sensor_msgs REQUIRED)
@@ -31,12 +32,14 @@ add_library(composition_pcl_nodes SHARED
 target_compile_definitions(composition_pcl_nodes
   PRIVATE "MINIMAL_COMPOSITION_DLL")
 ament_target_dependencies(composition_pcl_nodes
+    class_loader
+    pcl_conversions
     rclcpp
-    rclcpp_components
     sensor_msgs
     std_msgs)
 target_link_libraries(composition_pcl_nodes
-    ${Boost_LIBRARIES})
+    ${Boost_LIBRARIES}
+    ${PCL_LIBRARIES})
 
 # This package installs libraries without exporting them.
 # Export the library path to ensure that the installed libraries are available.
