@@ -17,7 +17,7 @@ find_package(rclcpp_components REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(pcl_conversions REQUIRED)
-find_package(pcl_msgs REQUIRED)
+#find_package(pcl_msgs REQUIRED)
 
 find_package(Boost REQUIRED)
 find_package(PCL REQUIRED QUIET COMPONENTS common)
